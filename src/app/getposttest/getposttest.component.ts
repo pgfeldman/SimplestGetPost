@@ -21,7 +21,7 @@ export class GetposttestComponent {
   }
 
   doPost(event) {
-    let payload = {
+    const payload = {
       title: 'foo',
       body: 'bar',
       userId: 1
@@ -30,41 +30,43 @@ export class GetposttestComponent {
     this.http.post('http://localhost:4200/getPostServer/script.php', payload, httpOptions)
       .subscribe((data) => {
         console.log('Got some data from backend ', data);
-        this.extractMessage(data, "getPostInfo");
+        this.mobj = data['getPostInfo'];
+        this.mkeys = Object.keys(this.mobj);
+        // this.extractMessage(data, 'getPostInfo');
       }, (error) => {
         console.log('Error! ', error);
       });
   }
 
   doGet(event) {
-    let payload = {
+    const payload = {
       title: 'foo',
       body: 'bar',
       userId: 1
     };
-    let message = 'message='+encodeURIComponent(JSON.stringify(payload));
-    let target = 'http://localhost:4200/getPostServer/script.php?';
+    const message = 'message=' + encodeURIComponent(JSON.stringify(payload));
+    const target = 'http://localhost:4200/getPostServer/script.php?';
 
-    //this.http.get(target+'title=\'my title\'&body=\'the body\'&userId=1')
-    this.http.get(target+message)
+    // this.http.get(target+'title=\'my title\'&body=\'the body\'&userId=1')
+    this.http.get(target + message)
       .subscribe((data) => {
         console.log('Got some data from backend ', data);
-        this.extractMessage(data, "getGetInfo");
+        this.extractMessage(data, 'getGetInfo');
       }, (error) => {
         console.log('Error! ', error);
       });
   }
 
-  extractMessage(obj, name: string){
-    let item = obj[name];
+  extractMessage(obj, name: string) {
+    const item = obj[name];
     try {
       if (item) {
-        let mstr = item.message;
+        const mstr = item.message;
         this.mobj = JSON.parse(mstr);
       }
-    }catch(err){
+    } catch (err) {
       this.mobj = {};
-      this.mobj["message"] = "Error extracting 'message' from ["+name+"]";
+      this.mobj['message'] = 'Error extracting \'message\' from [' + name + ']';
     }
     this.mkeys = Object.keys(this.mobj);
   }
