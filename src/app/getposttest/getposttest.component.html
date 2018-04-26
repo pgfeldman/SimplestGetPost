@@ -1,0 +1,9 @@
+<div style="padding: 10px">
+  <h3>Test POST and GET</h3>
+  <label class="btn btn-default">
+    <button (click)="doPost($event)">POST!</button>
+    <button (click)="doGet($event)">GET!</button>
+  </label>
+  <p>message components:</p>
+  <li *ngFor="let key of mkeys">{{key}}: {{mobj[key]}}</li>
+</div>
