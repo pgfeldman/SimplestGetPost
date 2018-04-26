@@ -27,7 +27,7 @@ export class GetposttestComponent {
       userId: 1
     };
 
-    this.http.post('http://localhost:4200/uli/script.php', payload, httpOptions)
+    this.http.post('http://localhost:4200/getPostServer/script.php', payload, httpOptions)
       .subscribe((data) => {
         console.log('Got some data from backend ', data);
         this.extractMessage(data, "getPostInfo");
@@ -43,7 +43,7 @@ export class GetposttestComponent {
       userId: 1
     };
     let message = 'message='+encodeURIComponent(JSON.stringify(payload));
-    let target = 'http://localhost:4200/uli/script.php?';
+    let target = 'http://localhost:4200/getPostServer/script.php?';
 
     //this.http.get(target+'title=\'my title\'&body=\'the body\'&userId=1')
     this.http.get(target+message)
