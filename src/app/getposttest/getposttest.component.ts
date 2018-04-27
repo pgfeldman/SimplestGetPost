@@ -22,7 +22,7 @@ export class GetposttestComponent {
 
   doPost(event) {
     const payload = {
-      title: 'foo',
+      title: 'hello from POST',
       body: 'bar',
       userId: 1
     };
@@ -40,7 +40,7 @@ export class GetposttestComponent {
 
   doGet(event) {
     const payload = {
-      title: 'foo',
+      title: 'hello from GET',
       body: 'bar',
       userId: 1
     };
@@ -51,23 +51,10 @@ export class GetposttestComponent {
     this.http.get(target + message)
       .subscribe((data) => {
         console.log('Got some data from backend ', data);
-        this.extractMessage(data, 'getGetInfo');
+        this.mobj = data['getGetInfo'];
+        this.mkeys = Object.keys(this.mobj);
       }, (error) => {
         console.log('Error! ', error);
       });
-  }
-
-  extractMessage(obj, name: string) {
-    const item = obj[name];
-    try {
-      if (item) {
-        const mstr = item.message;
-        this.mobj = JSON.parse(mstr);
-      }
-    } catch (err) {
-      this.mobj = {};
-      this.mobj['message'] = 'Error extracting \'message\' from [' + name + ']';
-    }
-    this.mkeys = Object.keys(this.mobj);
   }
 }
